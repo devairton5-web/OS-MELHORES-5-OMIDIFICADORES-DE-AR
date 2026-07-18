@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Névoa — Os 5 Melhores Umidificadores de Ar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --ink: #0B1A22;
+    --panel: #0F2530;
+    --panel-light: #143240;
+    --mist: #8ECAE6;
+    --lilac: #C9B6FF;
+    --amber: #FFB86B;
+    --off: #EAF2F1;
+    --muted: #9FB3B8;
+    --line: rgba(234,242,241,0.09);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--ink);
+    color: var(--off);
+    font-family: 'Manrope', sans-serif;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+
+  .mist-layer{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 10%, rgba(142,202,230,0.14), transparent 60%),
+      radial-gradient(ellipse 50% 35% at 85% 25%, rgba(201,182,255,0.10), transparent 60%),
+      radial-gradient(ellipse 55% 45% at 50% 90%, rgba(142,202,230,0.08), transparent 60%);
+  }
+
+  .droplet{
+    position:fixed; z-index:0; pointer-events:none; border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, rgba(142,202,230,0.5), rgba(142,202,230,0) 70%);
+    filter: blur(1px);
+    animation: rise linear infinite;
+    opacity:0.5;
+  }
+  @keyframes rise{
+    0%{ transform: translateY(0) translateX(0); opacity:0; }
+    10%{ opacity:0.5; }
+    90%{ opacity:0.3; }
+    100%{ transform: translateY(-110vh) translateX(20px); opacity:0; }
+  }
+
+  header{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 22px 6vw;
+    background: rgba(11,26,34,0.72);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .logo{
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.3rem;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo-mark{
+    width:14px; height:18px; border-radius:50% 50% 50% 4px;
+    background: linear-gradient(160deg, var(--mist), var(--lilac));
+    transform: rotate(-45deg);
+    box-shadow: 0 0 16px rgba(142,202,230,0.5);
+  }
+  nav a{
+    color: var(--muted); text-decoration:none; font-size:0.92rem; font-weight:600;
+    margin-left: 2.2rem; transition: color 0.25s ease;
+  }
+  nav a:hover{ color: var(--mist); }
+
+  .hero{
+    position:relative; z-index:1;
+    min-height: 78vh;
+    display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
+    padding: 0 6vw;
+  }
+  .eyebrow{
+    font-size:0.82rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase;
+    color: var(--mist); margin-bottom:1.4rem;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:''; width:28px; height:1px; background: var(--mist); }
+  h1{
+    font-family:'Fraunces', serif; font-weight:600;
+    font-size: clamp(2.4rem, 6.5vw, 4.6rem);
+    line-height: 1.04;
+    max-width: 14ch;
+    letter-spacing: -0.01em;
+  }
+  h1 em{
+    font-style: italic; font-weight:400;
+    background: linear-gradient(100deg, var(--mist), var(--lilac));
+    -webkit-background-clip: text; background-clip:text; color:transparent;
+  }
+  .hero p{
+    margin-top: 1.6rem;
+    max-width: 46ch;
+    font-size: 1.06rem; line-height:1.65;
+    color: var(--muted);
+  }
+  .hero-cta{
+    margin-top: 2.2rem;
+    display:inline-flex; align-items:center; gap:10px;
+    text-decoration:none; font-weight:700; font-size:0.95rem;
+    padding: 0.95rem 1.7rem; border-radius: 100px;
+    background: linear-gradient(100deg, var(--mist), var(--lilac));
+    color: #0B1A22;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 8px 30px -8px rgba(142,202,230,0.5);
+  }
+  .hero-cta:hover{ transform: translateY(-2px); box-shadow: 0 12px 34px -6px rgba(142,202,230,0.65); }
+
+  .section-head{
+    position:relative; z-index:1;
+    padding: 4.5rem 6vw 2.5rem;
+    max-width: 780px;
+  }
+  .section-head .eyebrow{ color: var(--lilac); }
+  .section-head .eyebrow::before{ background: var(--lilac); }
+  .section-head h2{
+    font-family:'Fraunces', serif; font-weight:600; font-size: clamp(1.9rem, 4vw, 2.6rem);
+  }
+  .section-head p{ margin-top:1rem; color:var(--muted); line-height:1.6; max-width:60ch; }
+
+  .ranking{
+    position:relative; z-index:1;
+    padding: 1rem 6vw 6rem;
+    display:flex; flex-direction:column; gap: 1.8rem;
+  }
+
+  .card{
+    position:relative;
+    display:grid;
+    grid-template-columns: 200px 1fr 220px;
+    gap: 2.4rem;
+    align-items:start;
+    background: linear-gradient(160deg, var(--panel), var(--panel-light));
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 2.4rem;
+    overflow:hidden;
+    transition: transform 0.35s ease, border-color 0.35s ease;
+  }
+  .card::before{
+    content:''; position:absolute; inset:0; z-index:0;
+    background: radial-gradient(circle at 0% 0%, rgba(142,202,230,0.08), transparent 55%);
+    opacity:0; transition: opacity 0.35s ease;
+  }
+  .card:hover{ transform: translateY(-4px); border-color: rgba(142,202,230,0.35); }
+  .card:hover::before{ opacity:1; }
+
+  .rank-num{
+    position:absolute; top:1.4rem; left:1.6rem; z-index:2;
+    font-family:'Fraunces', serif; font-size:0.85rem; font-weight:600;
+    color: var(--muted); letter-spacing:0.05em;
+  }
+
+  .visual{
+    position:relative; z-index:1;
+    width:100%; aspect-ratio:1/1;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:18px;
+    background: radial-gradient(circle at 50% 30%, rgba(142,202,230,0.14), rgba(255,255,255,0.02) 70%);
+    overflow:hidden;
+  }
+  .visual svg{ width:62%; height:62%; }
+
+  .info{ position:relative; z-index:1; }
+  .info .name{ font-family:'Fraunces', serif; font-weight:600; font-size:1.55rem; margin-bottom:0.5rem; }
+  .info .tag{
+    display:inline-block; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;
+    color: var(--ink); background: var(--amber);
+    padding: 0.25rem 0.65rem; border-radius:100px; margin-bottom:0.9rem;
+  }
+  .info .desc{ color: var(--off); font-size:0.96rem; line-height:1.65; max-width:56ch; opacity:0.85; }
+  .info .desc + .desc{ margin-top:0.7rem; }
+
+  .specs{
+    display:grid; grid-template-columns: repeat(2, auto); gap:0.5rem 1.6rem; margin-top:1.2rem;
+  }
+  .specs span{
+    font-size:0.82rem; color: var(--mist); display:flex; align-items:center; gap:6px;
+  }
+  .specs span::before{ content:'•'; color: var(--lilac); }
+  .specs b{ color: var(--off); font-weight:700; }
+
+  .best-for{
+    margin-top:1.1rem; padding-top:1.1rem; border-top:1px dashed var(--line);
+    font-size:0.85rem; color: var(--muted);
+  }
+  .best-for b{ color: var(--lilac); font-weight:700; }
+
+  .action{ position:relative; z-index:1; text-align:right; }
+  .price-note{ font-size:0.78rem; color:var(--muted); margin-bottom:0.8rem; display:block; }
+  .buy-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background: linear-gradient(100deg, var(--mist), var(--lilac));
+    color: #0B1A22; font-weight:800; font-size:0.9rem;
+    padding: 0.85rem 1.5rem; border-radius:100px; text-decoration:none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 6px 22px -8px rgba(142,202,230,0.5);
+    white-space:nowrap;
+  }
+  .buy-btn:hover{ transform: translateY(-2px) scale(1.02); box-shadow: 0 10px 28px -6px rgba(142,202,230,0.65); }
+  .buy-btn svg{ width:15px; height:15px; }
+
+  .tips{
+    position:relative; z-index:1;
+    margin: 0 6vw 6rem;
+    border-top: 1px solid var(--line);
+    padding-top: 3rem;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .tip h3{
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.1rem; margin-bottom:0.6rem;
+    display:flex; align-items:center; gap:10px;
+  }
+  .tip h3 .dot{ width:8px; height:8px; border-radius:50%; background: var(--mist); flex-shrink:0; }
+  .tip p{ color: var(--muted); font-size:0.9rem; line-height:1.6; }
+
+  footer{
+    position:relative; z-index:1;
+    padding: 3rem 6vw; border-top: 1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;
+  }
+  footer p{ color: var(--muted); font-size:0.82rem; line-height:1.6; max-width:56ch; }
+  .footer-logo{ font-family:'Fraunces', serif; font-weight:600; color: var(--off); }
+
+  @media (max-width: 880px){
+    .card{ grid-template-columns: 1fr; text-align:left; }
+    .visual{ width:150px; margin-bottom:0.5rem; }
+    .action{ text-align:left; }
+    .specs{ grid-template-columns: 1fr; }
+    .tips{ grid-template-columns:1fr; }
+  }
+
+  :focus-visible{ outline: 2px solid var(--mist); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<div class="mist-layer"></div>
+<div id="droplets"></div>
+
+<header>
+  <div class="logo"><span class="logo-mark"></span>Névoa</div>
+  <nav>
+    <a href="#ranking">Ranking</a>
+    <a href="#dicas">Como escolher</a>
+  </nav>
+</header>
+
+<div class="section-head" id="ranking">
+  <div class="eyebrow">Top 5</div>
+  <h2>Os melhores modelos para comprar agora</h2>
+  <p>Ordenados por avaliação, autonomia e custo-benefício. Clique em "Ver oferta" para conferir o preço atual no Mercado Livre.</p>
+</div>
+
+<div class="ranking">
+
+  <!-- 1 -->
+  <div class="card">
+    <span class="rank-num">01</span>
+    <div class="visual">
+      <svg viewBox="0 0 120 140" fill="none">
+        <ellipse cx="60" cy="128" rx="42" ry="8" fill="#8ECAE6" opacity="0.15"/>
+        <path d="M35 70 Q35 40 60 20 Q85 40 85 70 L85 115 Q85 128 72 128 L48 128 Q35 128 35 115 Z" fill="url(#g1)" stroke="#C9B6FF" stroke-width="1.5"/>
+        <circle cx="60" cy="95" r="12" fill="#0F2530" stroke="#8ECAE6" stroke-width="1.5"/>
+        <path d="M45 55 Q60 45 75 55" stroke="#EAF2F1" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+        <path d="M60 8 Q68 16 60 24 Q52 16 60 8Z" fill="#8ECAE6" opacity="0.8"/>
+        <defs><linearGradient id="g1" x1="35" y1="20" x2="85" y2="128"><stop stop-color="#143240"/><stop offset="1" stop-color="#0F2530"/></linearGradient></defs>
+      </svg>
+    </div>
+    <div class="info">
+      <span class="tag">Mais vendido</span>
+      <div class="name">WAP Air Flow U2</div>
+      <p class="desc">O modelo 3 em 1 mais popular do Mercado Livre: além de umidificar, funciona como luminária de LED com luz suave e como difusor de aromas — basta adicionar óleos essenciais no compartimento próprio.</p>
+      <p class="desc">Usa tecnologia ultrassônica, transformando água em névoa fina através de vibrações de alta frequência, sem fazer barulho. Tem bico direcionável, indicador de água baixa e desligamento automático quando o reservatório esvazia.</p>
+      <div class="specs">
+        <span><b>2,3 L</b> de capacidade</span>
+        <span><b>25 W</b> de potência</span>
+        <span>Autonomia de <b>8,5h a 23h</b></span>
+        <span><b>Bivolt</b> automático</span>
+        <span>Peso: <b>900 g</b></span>
+        <span>Garantia de <b>12 meses</b></span>
+      </div>
+      <div class="best-for"><b>Ideal para:</b> quem quer um "3 em 1" completo — umidade, luz noturna e aromaterapia no mesmo aparelho.</div>
+    </div>
+    <div class="action">
+      <span class="price-note">Ver preço atual</span>
+      <a class="buy-btn" href="https://meli.la/2iRns7y" target="_blank" rel="noopener sponsored">
+        Ver oferta
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="card">
+    <span class="rank-num">02</span>
+    <div class="visual">
+      <svg viewBox="0 0 120 140" fill="none">
+        <path d="M30 75 Q30 45 60 22 Q90 45 90 75 L90 118 Q90 130 78 130 L42 130 Q30 130 30 118 Z" fill="url(#g2)" stroke="#8ECAE6" stroke-width="1.5"/>
+        <rect x="45" y="95" width="30" height="16" rx="4" fill="#0B1A22" stroke="#C9B6FF" stroke-width="1.2"/>
+        <circle cx="52" cy="103" r="2.4" fill="#C9B6FF"/>
+        <circle cx="60" cy="103" r="2.4" fill="#8ECAE6"/>
+        <circle cx="68" cy="103" r="2.4" fill="#FFB86B"/>
+        <path d="M60 10 Q66 16 60 22 Q54 16 60 10Z" fill="#C9B6FF" opacity="0.8"/>
+        <defs><linearGradient id="g2" x1="30" y1="22" x2="90" y2="130"><stop stop-color="#143240"/><stop offset="1" stop-color="#0F2530"/></linearGradient></defs>
+      </svg>
+    </div>
+    <div class="info">
+      <span class="tag">Precisão digital</span>
+      <div class="name">Elgin Digital</div>
+      <p class="desc">O favorito de quem quer controle fino: tem painel digital que mostra e regula o nível de umidade do ambiente, evitando excesso — o que também pode causar mofo e ácaros.</p>
+      <p class="desc">Tecnologia ultrassônica com 3 velocidades de névoa, permitindo ajustar a intensidade conforme o tamanho do cômodo. Corpo bivolt e reservatório de 2,5 litros.</p>
+      <div class="specs">
+        <span><b>2,5 L</b> de capacidade</span>
+        <span><b>3 velocidades</b> de névoa</span>
+        <span>Painel <b>digital</b></span>
+        <span><b>Bivolt</b></span>
+        <span>Operação <b>silenciosa</b></span>
+        <span>Vibração <b>ultrassônica</b></span>
+      </div>
+      <div class="best-for"><b>Ideal para:</b> quem tem alergias ou problemas respiratórios e precisa manter a umidade numa faixa exata.</div>
+    </div>
+    <div class="action">
+      <span class="price-note">Ver preço atual</span>
+      <a class="buy-btn" href="https://meli.la/2DtmC9C" target="_blank" rel="noopener sponsored">
+        Ver oferta
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="card">
+    <span class="rank-num">03</span>
+    <div class="visual">
+      <svg viewBox="0 0 120 140" fill="none">
+        <ellipse cx="60" cy="118" rx="38" ry="14" fill="url(#g3)" stroke="#8ECAE6" stroke-width="1.5"/>
+        <path d="M40 118 L40 60 Q40 38 60 30 Q80 38 80 60 L80 118" fill="none" stroke="#C9B6FF" stroke-width="1.5"/>
+        <circle cx="60" cy="30" r="6" fill="#8ECAE6"/>
+        <path d="M50 75 Q60 68 70 75" stroke="#EAF2F1" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+        <path d="M50 90 Q60 83 70 90" stroke="#EAF2F1" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+        <defs><linearGradient id="g3" x1="22" y1="104" x2="98" y2="132"><stop stop-color="#143240"/><stop offset="1" stop-color="#0F2530"/></linearGradient></defs>
+      </svg>
+    </div>
+    <div class="info">
+      <span class="tag">Longa autonomia</span>
+      <div class="name">Black+Decker Air1000</div>
+      <p class="desc">Um dos modelos mais equilibrados da lista: reservatório de 2,5 litros que garante até 20 horas de uso contínuo sem precisar reabastecer — dá pra deixar ligado a noite inteira e boa parte do dia seguinte.</p>
+      <p class="desc">Design simples e robusto, sem muitos recursos extras, focado em fazer bem o essencial: umidificar de forma consistente. Boa opção de entrada por ter preço mais acessível que os modelos "3 em 1".</p>
+      <div class="specs">
+        <span><b>2,5 L</b> de capacidade</span>
+        <span>Até <b>20h</b> de autonomia</span>
+        <span><b>Bivolt</b></span>
+        <span>Fácil de <b>limpar</b></span>
+        <span>Design <b>compacto</b></span>
+        <span>Bom <b>custo-benefício</b></span>
+      </div>
+      <div class="best-for"><b>Ideal para:</b> quem quer simplicidade e autonomia longa sem pagar por funções extras.</div>
+    </div>
+    <div class="action">
+      <span class="price-note">Ver preço atual</span>
+      <a class="buy-btn" href="https://meli.la/19QA8Mr" target="_blank" rel="noopener sponsored">
+        Ver oferta
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="card">
+    <span class="rank-num">04</span>
+    <div class="visual">
+      <svg viewBox="0 0 120 140" fill="none">
+        <circle cx="60" cy="80" r="38" fill="url(#g4)" stroke="#8ECAE6" stroke-width="1.5"/>
+        <rect x="50" y="38" width="20" height="14" rx="3" fill="#0F2530" stroke="#C9B6FF" stroke-width="1.2"/>
+        <path d="M45 80 Q60 70 75 80" stroke="#EAF2F1" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
+        <path d="M48 92 Q60 85 72 92" stroke="#EAF2F1" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
+        <path d="M58 20 Q64 27 58 34 Q52 27 58 20Z" fill="#8ECAE6" opacity="0.8"/>
+        <defs><linearGradient id="g4" x1="22" y1="42" x2="98" y2="118"><stop stop-color="#143240"/><stop offset="1" stop-color="#0F2530"/></linearGradient></defs>
+      </svg>
+    </div>
+    <div class="info">
+      <span class="tag">Compacto e popular</span>
+      <div class="name">Dellamed Umi Pop Health 2,3L</div>
+      <p class="desc">Um dos umidificadores mais vendidos do Mercado Livre, com nota média de 4,6/5 entre mais de 1.200 avaliações. Formato arredondado e discreto, cabe em qualquer canto sem chamar atenção.</p>
+      <p class="desc">Tecnologia ultrassônica com operação bem silenciosa — indicado para mesa de trabalho, cabeceira da cama ou até quarto de bebê, onde o barulho não pode incomodar.</p>
+      <div class="specs">
+        <span><b>2,3 L</b> de capacidade</span>
+        <span>Tecnologia <b>ultrassônica</b></span>
+        <span>Nota <b>4,6/5</b></span>
+        <span>+1.200 <b>avaliações</b></span>
+        <span>Formato <b>compacto</b></span>
+        <span>Operação <b>silenciosa</b></span>
+      </div>
+      <div class="best-for"><b>Ideal para:</b> ambientes pequenos, mesas de trabalho e quartos onde o silêncio é prioridade.</div>
+    </div>
+    <div class="action">
+      <span class="price-note">Ver preço atual</span>
+      <a class="buy-btn" href="https://meli.la/2CshH5g" target="_blank" rel="noopener sponsored">
+        Ver oferta
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="card">
+    <span class="rank-num">05</span>
+    <div class="visual">
+      <svg viewBox="0 0 120 140" fill="none">
+        <path d="M28 122 L28 55 Q28 30 60 25 Q92 30 92 55 L92 122 Q92 130 84 130 L36 130 Q28 130 28 122Z" fill="url(#g5)" stroke="#8ECAE6" stroke-width="1.5"/>
+        <rect x="42" y="100" width="36" height="14" rx="3" fill="#0B1A22" stroke="#FFB86B" stroke-width="1.2"/>
+        <text x="60" y="110" font-size="9" fill="#FFB86B" text-anchor="middle" font-family="Manrope">5L</text>
+        <path d="M42 65 Q60 55 78 65" stroke="#EAF2F1" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+        <path d="M42 80 Q60 70 78 80" stroke="#EAF2F1" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+        <defs><linearGradient id="g5" x1="28" y1="25" x2="92" y2="130"><stop stop-color="#143240"/><stop offset="1" stop-color="#0F2530"/></linearGradient></defs>
+      </svg>
+    </div>
+    <div class="info">
+      <span class="tag">Alta capacidade</span>
+      <div class="name">G-Tech Allergy Free Timer</div>
+      <p class="desc">O maior reservatório da lista: até 5 litros, o que garante longas horas de uso contínuo — pensado para ambientes maiores ou para quem não quer ficar reabastecendo o aparelho com frequência.</p>
+      <p class="desc">Conta com timer de desligamento automático quando a água acaba, filtro purificador e tecnologia de ionização, que ajuda a combater fungos e bactérias na água armazenada.</p>
+      <div class="specs">
+        <span><b>5 L</b> de capacidade</span>
+        <span>Até <b>17h</b> de autonomia</span>
+        <span><b>Timer</b> automático</span>
+        <span><b>Ionização</b> da água</span>
+        <span>Filtro <b>purificador</b></span>
+        <span><b>Bivolt</b></span>
+      </div>
+      <div class="best-for"><b>Ideal para:</b> salas grandes, escritórios ou quem usa ar-condicionado o dia todo.</div>
+    </div>
+    <div class="action">
+      <span class="price-note">Ver preço atual</span>
+      <a class="buy-btn" href="https://meli.la/18e2Lj4" target="_blank" rel="noopener sponsored">
+        Ver oferta
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<div class="tips" id="dicas">
+  <div class="tip">
+    <h3><span class="dot"></span>Umidade ideal</h3>
+    <p>Mantenha entre 40% e 60%. Acima disso favorece mofo e ácaros; abaixo, resseca vias respiratórias e pele.</p>
+  </div>
+  <div class="tip">
+    <h3><span class="dot"></span>Tamanho do reservatório</h3>
+    <p>Para dormir a noite toda sem reabastecer, prefira modelos com 2,5 L ou mais de capacidade.</p>
+  </div>
+  <div class="tip">
+    <h3><span class="dot"></span>Limpeza regular</h3>
+    <p>Use água filtrada e limpe o reservatório a cada poucos dias para evitar resíduos e mau odor.</p>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-logo">Névoa</div>
+    <p>Guia independente de comparação. Os links de compra são de afiliado — ao comprar por eles, você apoia este conteúdo sem custo adicional.</p>
+  </div>
+</footer>
+
+<script>
+  const container = document.getElementById('droplets');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduceMotion){
+    for(let i=0;i<18;i++){
+      const d = document.createElement('div');
+      d.className = 'droplet';
+      const size = 4 + Math.random()*10;
+      d.style.width = size+'px';
+      d.style.height = size+'px';
+      d.style.left = Math.random()*100+'vw';
+      d.style.bottom = '-40px';
+      d.style.animationDuration = (14 + Math.random()*16)+'s';
+      d.style.animationDelay = (Math.random()*20)+'s';
+      container.appendChild(d);
+    }
+  }
+</script>
+
+</body>
+</html>
